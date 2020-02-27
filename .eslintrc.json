@@ -31,7 +31,11 @@
   "settings": {
     "import/resolver": {
       "alias": {
-        "map": [],
+        "map": [
+          ["@src", "./src"],
+          ["@tests", "./tests"],
+          ["@queries", "./queries"]
+        ],
         "extensions": [
           ".ts",
           ".js"

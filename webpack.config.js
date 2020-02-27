@@ -13,6 +13,11 @@ module.exports = {
     extensions: ['.mjs', '.json', '.ts'],
     symlinks: false,
     cacheWithContext: false,
+    alias: {
+      '@src': path.resolve(__dirname, './src'),
+      '@queries': path.resolve(__dirname, './queries'),
+      '@tests': path.resolve(__dirname, './tests'),
+    },
   },
   output: {
     libraryTarget: 'commonjs',

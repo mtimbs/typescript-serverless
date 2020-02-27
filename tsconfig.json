@@ -11,7 +11,12 @@
     "inlineSources": true,
     "esModuleInterop": true,
     "sourceRoot": "/",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@queries/*": ["queries/*"],
+      "@tests/*": ["tests/*"]
+    }
   },
   "include": ["./**/*.ts"],
   "exclude": [

@@ -35,7 +35,7 @@ provider:
     lambda: true
   iamRoleStatements:
     - Effect: Allow
-      Action
+    Action
       - xray:PutTraceSegments
       - xray:PutTelemetryRecords
     Resource: *
