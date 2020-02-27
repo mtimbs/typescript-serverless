@@ -1,0 +1,41 @@
+{
+  "extends": [
+    "airbnb-base",
+    "plugin:jest/all",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "root": true,
+  "globals": {},
+  "rules": {
+    "import/no-unresolved": [2, {"commonjs": true, "amd": true}],
+    "import/prefer-default-export": "off",
+    "max-len": ["error", {
+      "code":  150,
+      "ignoreComments":  true,
+      "ignoreTrailingComments":  true,
+      "ignoreUrls": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true
+    }]
+  },
+  "parser": "@typescript-eslint/parser",
+  "env": {},
+  "overrides": [],
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [],
+        "extensions": [
+          ".ts",
+          ".js"
+        ]
+      }
+    }
+  }
+}
