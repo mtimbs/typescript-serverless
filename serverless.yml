@@ -5,21 +5,44 @@ custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
+  serverless-iam-roles-per-function:
+    defaultInherit: true # Each function will inherit the service level roles too.
+  globalTables:
+    regions: # list of regions in which you want to set up global tables
+      - us-east-2 # Ohio (default region to date for stack)
+      - ap-southeast-2 # Sydney (lower latency for Australia)
+    createStack: true
 
 plugins:
+  - serverless-offline
   - serverless-webpack
+  - serverless-iam-roles-per-function
+  - serverless-create-global-dynamodb-table
 
 provider:
   name: aws
   runtime: nodejs12.x
+  frameworkVersion: ‘1.64.1’
+  stage: ${opt:stage, 'local'}
+  region: ${opt:region, 'us-east-2'}
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   environment:
+    DEBUG: '*'
+    NODE_ENV: ${self:provider.stage}
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+  tracing:
+    lambda: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action
+      - xray:PutTraceSegments
+      - xray:PutTelemetryRecords
+    Resource: *
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src/handler.hello
     events:
       - http:
           method: get

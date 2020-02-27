@@ -38,6 +38,7 @@
     "jest": "^25.1.0",
     "serverless-create-global-dynamodb-table": "^2.1.0",
     "serverless-iam-roles-per-function": "^2.0.2",
+    "serverless-offline": "^5.12.1",
     "serverless-webpack": "^5.2.0",
     "ts-loader": "^5.3.3",
     "typescript": "^3.2.4",
