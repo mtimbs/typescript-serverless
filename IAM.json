@@ -1,0 +1,64 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "VisualEditor0",
+      "Effect": "Allow",
+      "Action": [
+        "lambda:CreateFunction",
+        "lambda:ListVersionsByFunction",
+        "s3:CreateBucket",
+        "cloudformation:DescribeStackResource",
+        "lambda:GetFunctionConfiguration",
+        "s3:ListBucket",
+        "s3:GetBucketPolicy",
+        "s3:PutEncryptionConfiguration",
+        "cloudformation:DescribeStackEvents",
+        "cloudformation:UpdateStack",
+        "lambda:DeleteFunction",
+        "s3:DeleteBucket",
+        "cloudformation:ListStackResources",
+        "s3:GetBucketPolicyStatus",
+        "logs:DescribeLogGroups",
+        "logs:DeleteLogGroup",
+        "lambda:GetFunction",
+        "s3:DeleteBucketPolicy",
+        "logs:CreateLogGroup",
+        "cloudformation:DescribeStacks",
+        "lambda:AddPermission",
+        "cloudformation:CreateStack",
+        "s3:PutBucketPolicy",
+        "lambda:PublishVersion",
+        "lambda:RemovePermission",
+        "cloudformation:ValidateTemplate"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "VisualEditor1",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "iam:ListRoleTags",
+        "apigateway:PUT",
+        "iam:CreateRole",
+        "iam:DeleteRole",
+        "iam:PutRolePolicy",
+        "s3:PutObject",
+        "s3:GetObject",
+        "apigateway:DELETE",
+        "iam:PassRole",
+        "iam:DeleteRolePolicy",
+        "apigateway:POST",
+        "apigateway:GET",
+        "iam:GetRolePolicy"
+      ],
+      "Resource": [
+        "arn:aws:s3:::<service-name-goes-here>*/*",
+        "arn:aws:iam::*:role/<IAM-user-goes-here>",
+        "arn:aws:iam::*:role/<service-name-goes-here>*",
+        "arn:aws:apigateway:*::/restapis*"
+      ]
+    }
+  ]
+}
