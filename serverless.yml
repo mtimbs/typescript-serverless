@@ -12,12 +12,18 @@ custom:
       - us-east-2 # Ohio (default region to date for stack)
       - ap-southeast-2 # Sydney (lower latency for Australia)
     createStack: true
+  prune:
+    automatic: true
+    number: 3
+
+
 
 plugins:
   - serverless-offline
   - serverless-webpack
   - serverless-iam-roles-per-function
   - serverless-create-global-dynamodb-table
+  - serverless-prune-plugin
 
 provider:
   name: aws
