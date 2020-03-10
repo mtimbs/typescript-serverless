@@ -1,5 +1,6 @@
 module.exports = {
   setupFiles: ['./tests/setup/setEnvironment.js'],
+  preset: '@shelf/jest-dynamodb',
   transform: {
     '^.+\\.ts?$': 'babel-jest',
   },
