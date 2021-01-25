@@ -14,7 +14,7 @@
     "baseUrl": "./",
     "paths": {
       "@src/*": ["src/*"],
-      "@queries/*": ["queries/*"],
+      "@queries/*": ["src/queries/*"],
       "@tests/*": ["tests/*"]
     }
   },

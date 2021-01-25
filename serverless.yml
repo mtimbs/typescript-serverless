@@ -28,7 +28,6 @@ plugins:
 provider:
   name: aws
   runtime: nodejs12.x
-  frameworkVersion: ‘1.64.1’
   stage: ${opt:stage, 'local'}
   region: ${opt:region, 'us-east-2'}
   apiGateway:

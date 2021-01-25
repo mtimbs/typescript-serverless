@@ -15,7 +15,7 @@ module.exports = {
     cacheWithContext: false,
     alias: {
       '@src': path.resolve(__dirname, './src'),
-      '@queries': path.resolve(__dirname, './queries'),
+      '@queries': path.resolve(__dirname, './src/queries'),
       '@tests': path.resolve(__dirname, './tests'),
     },
   },
