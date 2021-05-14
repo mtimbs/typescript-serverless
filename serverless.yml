@@ -46,109 +46,11 @@ provider:
       Resource: "*"
 
 
-
+# Importing resources from external yml can keep things cleaner
 resources:
-  Resources:
-    # Use Single Table design and index overloading  where possible. It's the most flexible and scales the best
-    DynamoDBTable:
-      Type: AWS::DynamoDB::Table
-      DeletionPolicy: Retain
-      Properties:
-        TableName: ${self:service}-${self:provider.stage}
-        BillingMode: PAY_PER_REQUEST
-        StreamSpecification:
-          StreamViewType: NEW_AND_OLD_IMAGES
-        SSESpecification:
-          SSEEnabled: true
-        PointInTimeRecoverySpecification:
-          PointInTimeRecoveryEnabled: true
-        TimeToLiveSpecification:
-          AttributeName: ttl
-          Enabled: true
-        KeySchema:
-          - AttributeName: pk
-            KeyType: HASH
-          - AttributeName: sk
-            KeyType: RANGE
-        AttributeDefinitions:
-          - AttributeName: pk
-            AttributeType: S
-          - AttributeName: sk
-            AttributeType: S
-          - AttributeName: gsi1pk
-            AttributeType: S
-          - AttributeName: gsi1sk
-            AttributeType: S
-          - AttributeName: gsi2pk
-            AttributeType: S
-          - AttributeName: gsi2sk
-            AttributeType: S
-        GlobalSecondaryIndexes:
-          - IndexName: gsi1
-            KeySchema:
-              - AttributeName: gsi1pk
-                KeyType: HASH
-              - AttributeName: gsi1sk
-                KeyType: RANGE
-            Projection:
-              ProjectionType: ALL
-          - IndexName: gsi2
-            KeySchema:
-              - AttributeName: gsi2pk
-                KeyType: HASH
-              - AttributeName: gsi2sk
-                KeyType: RANGE
-            Projection:
-              ProjectionType: ALL
-
-    ExampleQueue:
-      Type: AWS::SQS::Queue
-      Properties:
-        QueueName: ${self:service}-${self:provider.stage}-example-queue
-        VisibilityTimeout: 180
-        RedrivePolicy:
-          deadLetterTargetArn: !GetAtt ExampleDLQ.Arn
-          maxReceiveCount: 3
-
-    ExampleDLQ:
-      Type: AWS::SQS::Queue
-      Properties:
-        QueueName: ${self:service}-${self:provider.stage}-example-dlq
-
-    ExampeleSNSTopic:
-      Type: AWS::SNS::Topic
-      Properties:
-        TopicName: ${self:service}-${self:provider.stage}-example-sns
-
-    # Rather than triggering lambdas of SNS directly it is better to Push SNS into SQS and then process the Queue. This ensures messages don't get dropped if lambdas throttle
-    # Here we create a policy to allow SNS to publish to the queue
-    ExampleSNSTopicPublishingToExampleQueuePolicy:
-      Type: AWS::SQS::QueuePolicy
-      Properties:
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Sid: 'allow-sns-message'
-              Effect: Allow
-              Principal: '*'
-              Resource: !GetAtt ExampleQueue.Arn
-              Action: 'sqs:SendMessage'
-              Condition:
-                ArnEquals:
-                  'aws:SourceArn': !Ref ExampeleSNSTopic
-        Queues:
-          - Ref: ExampleQueue
-
-  # And here we wire the topic into the Queue
-  ExampleSNSTopicPublishingToExampleQueueSubscription:
-    Type: AWS::SNS::Subscription
-    Properties:
-      Protocol: sqs
-      Endpoint: !GetAtt ExampleQueue.Arn
-      TopicArn: !Ref ExampeleSNSTopic
-      RawMessageDelivery: 'true'
-
-
+  - ${file(resources/dynamodb.yml)}
+  - ${file(resources/sqs.yml)}
+  - ${file(resources/sns.yml)}
 
 
 functions:

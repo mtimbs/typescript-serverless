@@ -1,0 +1,33 @@
+Resources:
+  ExampeleSNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: ${self:service}-${self:provider.stage}-example-sns
+
+    # Rather than triggering lambdas of SNS directly it is better to Push SNS into SQS and then process the Queue. This ensures messages don't get dropped if lambdas throttle
+    # Here we create a policy to allow SNS to publish to the queue
+    ExampleSNSTopicPublishingToExampleQueuePolicy:
+      Type: AWS::SQS::QueuePolicy
+      Properties:
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Sid: 'allow-sns-message'
+              Effect: Allow
+              Principal: '*'
+              Resource: !GetAtt ExampleQueue.Arn
+              Action: 'sqs:SendMessage'
+              Condition:
+                ArnEquals:
+                  'aws:SourceArn': !Ref ExampeleSNSTopic
+        Queues:
+          - Ref: ExampleQueue
+
+    # And here we wire the topic into the Queue
+    ExampleSNSTopicPublishingToExampleQueueSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Protocol: sqs
+        Endpoint: !GetAtt ExampleQueue.Arn
+        TopicArn: !Ref ExampeleSNSTopic
+        RawMessageDelivery: 'true'

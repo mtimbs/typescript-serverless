@@ -1,0 +1,14 @@
+Resources:
+  ExampleQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:service}-${self:provider.stage}-example-queue
+      VisibilityTimeout: 180
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt ExampleDLQ.Arn
+        maxReceiveCount: 3
+
+  ExampleDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:service}-${self:provider.stage}-example-dlq
