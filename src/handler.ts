@@ -1,8 +1,8 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
+import { APIGatewayEventDefaultAuthorizerContext, APIGatewayProxyEventBase, APIGatewayProxyHandler } from 'aws-lambda';
 import 'source-map-support/register';
 import { echo } from '@queries/exampleQuery';
 
-export const hello: APIGatewayProxyHandler = async (event) => ({
+export const hello: APIGatewayProxyHandler = async (event: APIGatewayProxyEventBase<APIGatewayEventDefaultAuthorizerContext>) => ({
   statusCode: 200,
   body: JSON.stringify({
     message: echo('Module aliasing is really the best'),
