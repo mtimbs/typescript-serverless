@@ -57,6 +57,6 @@
     "webpack": "^5.37.0",
     "webpack-node-externals": "^3.0.0"
   },
-  "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
+  "author": "Michael Timbs (https://github.com/mtimbs/typescript-serverless)",
   "license": "MIT"
 }
