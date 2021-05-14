@@ -22,7 +22,7 @@
     "aws-sdk": "^2.906.0",
     "serverless": "^2.8.0",
     "source-map-support": "^0.5.19",
-    "uuid": "^3.3.2"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -30,7 +30,9 @@
     "@babel/preset-typescript": "^7.12.1",
     "@shelf/jest-dynamodb": "^1.8.1",
     "@types/aws-lambda": "^8.10.76",
+    "@types/jest": "^26.0.23",
     "@types/node": "^15.0.3",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "babel-jest": "^25.5.1",
