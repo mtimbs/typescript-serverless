@@ -47,7 +47,7 @@
     "serverless-create-global-dynamodb-table": "^2.1.0",
     "serverless-dynamodb-local": "^0.2.39",
     "serverless-iam-roles-per-function": "^2.0.2",
-    "serverless-offline": "^7.0.0",
+    "serverless-offline": "^12.0.4",
     "serverless-prune-plugin": "^1.4.3",
     "serverless-webpack": "^5.3.5",
     "ts-jest": "^26.5.6",
